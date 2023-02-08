@@ -10,12 +10,10 @@
 #                                                                              #
 # **************************************************************************** #
 
-#variables
+NAME = libft.a
 
-NAME = libft.a #nom del'exectable que je veux generer
-
-CC = gcc #compilteur
-FLAGS = -Wall -Wextra -Werror #Flags
+CC = gcc
+FLAGS = -Wall -Wextra -Werror
 
 SRCS = ft_bzero.c \
 	ft_isalpha.c \
@@ -63,10 +61,8 @@ SRCS_BONUS = ft_lstnew.c\
 	ft_lstmap.c \
 	
 
-OBJS = $(SRCS:.c=.o) #transforme le nom des sources de .c a .o
+OBJS = $(SRCS:.c=.o)
 OBJS_BONUS = $(SRCS_BONUS:.c=.o)
-
-#regles
 
 .c.o:
 	${CC} ${FLAGS} -c $< -o ${<:.c=.o}
@@ -75,23 +71,14 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	ar -rcs $(NAME) $(OBJS) 
-#ar rcs pour me prendre tous les .o et creer le .a
 
-clean : #supprimer tous les fichiers objets generes par la compilation(nettoie les .o mais garde les executables)
+clean :
 	rm -f $(OBJS) $(OBJS_BONUS)
 	
-fclean : clean #appelle clean d'abord puis supprime l'executable genere 
+fclean : clean
 	rm -f $(NAME)
 
-#so:
-#	@$(CC) -fPIC $(CFLAGS) $(SRCS)
-#	@gcc -shared -o libft.so $(OBJS)
-	
-# so:
-# 	$(CC) -nostartfiles -fPIC $(FLAGS) $(SRCS)
-# 	gcc -nostartfiles -shared -o libft.so $(OBJS) $(OBJS_BONUS)
-
-re : fclean all #reset la compilation pour reprendre a zero
+re : fclean all
 
 bonus : $(OBJS) $(OBJS_BONUS)
 	ar -rcs $(NAME) $(OBJS) $(OBJS_BONUS) 
